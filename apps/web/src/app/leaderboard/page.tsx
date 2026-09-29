@@ -7,7 +7,7 @@ import { type LeaderboardEntry } from '@alvinmunk/shared';
 import { loadProfile } from '@/lib/profile';
 import { reverseHandles } from '@/lib/registry';
 import { Crest } from '@/components/brand/crest';
-import { Avatar } from '@/components/brand/avatar';
+import { Avatar } from '@/components/Avatar';
 import { Frame } from '@/components/fx/frame';
 import { ShareRow } from '@/components/fx/share-row';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -153,13 +153,21 @@ export default function LeaderboardPage() {
             {rows.map((e) => {
               const isMe = e.address === me;
               const handle = handles[e.address];
+              // Every row opens someone: their profile once a handle resolves, else their score.
               const href = handle ? `/u/${handle}` : `/score/${e.address}`;
-              const name = handle ? `@${handle}` : shortAddr(e.address);
-              const label = t('leaderboard.rowLabel', {
-                name,
-                rank: e.rank,
-                score: e.score,
-              });
+              // The link's accessible name, e.g. "@alice, rank 3, 42 Social XP" — it replaces
+              // the row's text for a screen reader, so it carries the "you" / flagged marks too.
+              const label = [
+                t('leaderboard.rowLabel', {
+                  name: handle ? `@${handle}` : shortAddr(e.address),
+                  rank: String(e.rank),
+                  score: String(e.score),
+                }),
+                isMe && t('leaderboard.you'),
+                e.flagged && t('leaderboard.flaggedTitle'),
+              ]
+                .filter(Boolean)
+                .join(', ');
               return (
                 <li key={e.address}>
                   <Link
@@ -178,7 +186,7 @@ export default function LeaderboardPage() {
                       )}
                     </span>
                     <Crest address={e.address} size={42} points={Math.min(9, 4 + (e.rank % 5))} />
-                    <Avatar address={e.address} size={32} className="shrink-0" />
+                    <Avatar address={e.address} size={32} />
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-mono text-sm">
                         {handle ? (

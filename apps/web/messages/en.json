@@ -320,10 +320,7 @@
   "leaderboard.flaggedTitle": "reciprocal vouch pair — possible ring",
   "leaderboard.you": "you",
   "leaderboard.share": "The most-connected on alvinmunk 🌌 — collect people, not points.",
-  "leaderboard.rowAria": "@{handle}, rank {rank}, {score} Social XP",
-  "leaderboard.rowAriaNoHandle": "rank {rank}, {score} Social XP",
-  "leaderboard.viewProfile": "View profile",
-  "leaderboard.viewScore": "View score",
+  "leaderboard.rowLabel": "{name}, rank {rank}, {score} Social XP",
 
   "howItWorks.meta.title": "How it works",
   "howItWorks.meta.desc": "The vouch loop, the two-track model, and our honest anti-sybil design.",
@@ -363,9 +360,6 @@
   "howItWorks.devs.openApp": "Open the app",
 
   "appTabs.home": "Home",
-  "stats.rowAria": "@{handle}, rank {rank}, {score} Social XP",
-  "stats.rowAriaNoHandle": "rank {rank}, {score} Social XP",
-  "stats.viewScore": "View score",
   "appTabs.vouch": "Vouch",
   "appTabs.quests": "Quests",
   "appTabs.rewards": "Rewards",

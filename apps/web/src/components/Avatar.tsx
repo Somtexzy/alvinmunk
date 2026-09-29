@@ -30,7 +30,6 @@ export function Avatar({
       className={cn(
         'relative inline-block shrink-0 overflow-hidden rounded-full bg-surface-2',
         ring && 'ring-2 ring-lime/40',
-        'transition-shadow duration-150 group-hover:ring-lime/70 group-focus-visible:ring-2 group-focus-visible:ring-lime group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-background',
         className,
       )}
       style={{ width: size, height: size }}

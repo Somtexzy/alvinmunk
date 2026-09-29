@@ -81,6 +81,9 @@ export default function StatsPage() {
   const target = s?.target ?? (tab === 'testnet' ? 50 : 20);
   const pct = users === undefined ? 0 : Math.min(100, Math.round((users / target) * 100));
   const isStale = stale[tab];
+  // The testnet tab lists the app's own contracts (NEXT_PUBLIC_* ids, api/stats), the ones
+  // /score reads, so its wallets open there. A mainnet wallet would get an unrelated score.
+  const inApp = tab === 'testnet';
 
   return (
     <div className="container max-w-3xl py-12">
@@ -170,29 +173,43 @@ export default function StatsPage() {
             Wallets ({s.addresses.length})
           </h2>
           <div className="grid gap-1.5 sm:grid-cols-2">
-            {s.addresses.map((a) => (
-              <div
-                key={a}
-                className="group flex items-center justify-between rounded-xl border border-border/50 bg-surface/30 px-3 py-2 font-mono text-xs transition-colors hover:border-border hover:bg-surface/60 focus-within:border-border focus-within:bg-surface/60"
-              >
-                <Link
-                  href={`/score/${a}`}
-                  aria-label={`View score for wallet ${shortAddr(a, 6, 6)}`}
-                  className="flex-1 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+            {s.addresses.map((a) =>
+              inApp ? (
+                <div
+                  key={a}
+                  className="flex items-center rounded-xl border border-border/50 bg-surface/30 font-mono text-xs transition-colors focus-within:border-border hover:border-border hover:bg-surface/60"
                 >
-                  {shortAddr(a, 6, 6)}
-                </Link>
+                  <Link
+                    href={`/score/${a}`}
+                    aria-label={`Score for ${shortAddr(a, 6, 6)}`}
+                    className="flex-1 rounded-l-xl px-3 py-2 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+                  >
+                    {shortAddr(a, 6, 6)}
+                  </Link>
+                  <a
+                    href={explorer(tab, a)}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${shortAddr(a, 6, 6)} on stellar.expert (opens in a new tab)`}
+                    title="stellar.expert"
+                    className="rounded-r-xl px-3 py-2 text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+                  >
+                    <ExternalLink className="size-3.5" />
+                  </a>
+                </div>
+              ) : (
                 <a
+                  key={a}
                   href={explorer(tab, a)}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`Open wallet ${shortAddr(a, 6, 6)} on stellar.expert`}
-                  className="rounded-md p-0.5 outline-none transition-opacity focus-visible:ring-2 focus-visible:ring-primary/60"
+                  className="group flex items-center justify-between rounded-xl border border-border/50 bg-surface/30 px-3 py-2 font-mono text-xs transition-colors hover:border-border hover:bg-surface/60"
                 >
-                  <ExternalLink className="size-3.5 text-muted-foreground opacity-60 transition-opacity group-hover:opacity-100" />
+                  <span>{shortAddr(a, 6, 6)}</span>
+                  <ExternalLink className="size-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </a>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </div>
       )}
