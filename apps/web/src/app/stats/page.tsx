@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Users, Activity, ExternalLink } from 'lucide-react';
 import { shortAddr } from '@alvinmunk/shared';
 import { cn } from '@/lib/utils';
@@ -170,16 +171,27 @@ export default function StatsPage() {
           </h2>
           <div className="grid gap-1.5 sm:grid-cols-2">
             {s.addresses.map((a) => (
-              <a
+              <div
                 key={a}
-                href={explorer(tab, a)}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-border/50 bg-surface/30 px-3 py-2 font-mono text-xs transition-colors hover:border-border hover:bg-surface/60"
+                className="group flex items-center justify-between rounded-xl border border-border/50 bg-surface/30 px-3 py-2 font-mono text-xs transition-colors hover:border-border hover:bg-surface/60 focus-within:border-border focus-within:bg-surface/60"
               >
-                <span>{shortAddr(a, 6, 6)}</span>
-                <ExternalLink className="size-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-              </a>
+                <Link
+                  href={`/score/${a}`}
+                  aria-label={`View score for wallet ${shortAddr(a, 6, 6)}`}
+                  className="flex-1 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                >
+                  {shortAddr(a, 6, 6)}
+                </Link>
+                <a
+                  href={explorer(tab, a)}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open wallet ${shortAddr(a, 6, 6)} on stellar.expert`}
+                  className="rounded-md p-0.5 outline-none transition-opacity focus-visible:ring-2 focus-visible:ring-primary/60"
+                >
+                  <ExternalLink className="size-3.5 text-muted-foreground opacity-60 transition-opacity group-hover:opacity-100" />
+                </a>
+              </div>
             ))}
           </div>
         </div>

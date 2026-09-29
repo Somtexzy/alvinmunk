@@ -304,6 +304,12 @@
   "leaderboard.flaggedTitle": "karşılıklı destek çifti — olası halka",
   "leaderboard.you": "sen",
   "leaderboard.share": "alvinmunk'ta en çok bağlantılı olanlar 🌌 — insanları topla, puan değil.",
+  "leaderboard.row.aria": "@{handle}, sıra {rank}, {xp} Sosyal XP",
+  "leaderboard.row.ariaNoHandle": "Sıra {rank}, {xp} Sosyal XP",
+  "leaderboard.row.viewProfile": "@{handle} profilini görüntüle",
+  "leaderboard.row.viewScore": "Puan sayfasını görüntüle",
+  "leaderboard.row.external": "stellar.expert'te aç",
+  "leaderboard.row.externalAria": "stellar.expert üzerinde {address} adresini aç (yeni sekme)",
 
   "howItWorks.meta.title": "Nasıl çalışır",
   "howItWorks.meta.desc": "Destek döngüsü, iki izli model ve dürüst sybil karşıtı tasarımımız.",
@@ -343,6 +349,10 @@
   "howItWorks.devs.openApp": "Uygulamayı aç",
 
   "appTabs.home": "Ana Sayfa",
+  "stats.row.aria": "@{handle}, {xp} Sosyal XP",
+  "stats.row.ariaNoHandle": "{address}, {xp} Sosyal XP",
+  "stats.row.viewScore": "Puan sayfasını görüntüle",
+  "stats.row.externalAria": "stellar.expert üzerinde {address} adresini aç (yeni sekme)",
   "appTabs.vouch": "Destek",
   "appTabs.quests": "Görevler",
   "appTabs.rewards": "Ödüller",
